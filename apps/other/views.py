@@ -1,4 +1,4 @@
-from typing import Optional,List
+from typing import Optional,List, Any
 from fastapi import Query, Path
 import random
 
@@ -27,7 +27,7 @@ async def otherAPI(other):
 
 
 @otherRouter.get("/random/")
-def random(start: int = 0, end: int = 1000, base: Optional[int]= None):
+def randomnum(start: int = 0, end: int = 1000, base: Optional[int]= None):
 
     return {
         "message": random.randint(start,end)
@@ -106,7 +106,7 @@ class User(BaseModel):
 @otherRouter.put("/examples/{path_data_one}/{path_data_two}")
 async def __examples(
                 path_data_one: str| int | None,  # 路径参数
-                path_data_two = None, 
+                path_data_two, 
                 user: Annotated[User, Body()],  # 请求体参数
                 options: OptionData, 
                 q: str # 查询参数
@@ -138,16 +138,16 @@ async def read_items(
 class UserIn(BaseModel):
     username: str
     password: str
-    email: EmailStr
+    email: str
     full_name: str | None = None
 
 
 class UserOut(BaseModel):
     username: str
-    email: EmailStr
+    email: str
     full_name: str | None = None
 
 
-@app.post("/user/", response_model=UserOut)
+@otherRouter.post("/user/", response_model=UserOut)
 async def create_user(user: UserIn) -> Any:
     return user
