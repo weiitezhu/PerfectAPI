@@ -1,3 +1,3 @@
 from fastapi import APIRouter
 
-sortRouter = APIRouter()
+algorithmRouter = APIRouter()
