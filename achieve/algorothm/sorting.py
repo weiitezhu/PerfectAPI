@@ -45,3 +45,5 @@ def merger_sort(arr: List[int]):
     right = merger_sort(arr[m:])
 
     return merger_two_sort_arr(left, right)
+
+
